@@ -295,6 +295,7 @@ window.addEventListener("scroll", function () {
                 </div>
                 
                <!-- In the reverse bias table section, modify the placeholder values to be negative -->
+                <h3>Reverse Bias Characteristics</h3>
 <table class="reading-table" id="reverse-bias-table">
     <thead>
         <tr>
@@ -577,7 +578,34 @@ window.addEventListener("scroll", function () {
        <!-- Add this before the closing </body> tag -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+ 
     <script>
+
+         const accordionBtns = document.querySelectorAll('.accordion-btn');
+
+  accordionBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Collapse all others
+      accordionBtns.forEach(otherBtn => {
+        if (otherBtn !== btn) {
+          otherBtn.classList.remove('active');
+          otherBtn.nextElementSibling.style.maxHeight = null;
+        }
+      });
+
+      // Toggle current
+      btn.classList.toggle('active');
+      const content = btn.nextElementSibling;
+      if (btn.classList.contains('active')) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      } else {
+        content.style.maxHeight = null;
+      }
+    });
+  });
+       
+
         // Initialize AOS animation
         AOS.init({
             duration: 800,
@@ -608,22 +636,9 @@ window.addEventListener("scroll", function () {
             evt.currentTarget.classList.add('active');
         }
 
-        // Accordion functionality
-        const accordionBtns = document.querySelectorAll('.accordion-btn');
+     
         
-        accordionBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.classList.toggle('active');
-                const content = btn.nextElementSibling;
-                
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                }
-            });
-        });
-
+       
         // Graph variables
         let forwardGraph, reverseGraph;
         
